@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.test.email.mapping.AddQuestionMapper">
+	<insert id="addQuestion" parameterType="cn.test.email.model.TQuestion">
+	insert into t_exam_question values(null,#{title},#{_option},#{answer},#{type},#{label},#{rank},#{created})
+	</insert>
+	
+	<select id="findAll" resultType="cn.test.email.model.TQuestion">
+	   select id,title,_option,type,rank from t_exam_question
+	</select>
+	
+	<insert id="addPaperQuestion" parameterType="cn.test.email.model.TQuestion">
+	 insert into t_paper_question values(#{pid},#{id}) 
+	</insert>
+	
+	<insert id="saveQuestion" parameterType="cn.test.email.model.TQuestion" useGeneratedKeys="true" keyProperty="id">
+	   insert into t_exam_question values(null,#{title},#{_option},#{answer},#{type},#{label},#{rank},#{created})
+	</insert>
+	
+	<!-- Excel保存试题 -->
+	<insert id="addExam" parameterType="cn.test.email.model.TQuestion">
+		insert into t_exam_question (id, title,_option,answer,type,label,rank,created)values
+		(#{id},#{title},#{_option},#{answer},#{type},#{label},#{rank},#{created})
+	</insert>
+	
+
+</mapper>

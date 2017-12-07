@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.test.email.mapping.AddTiMapper" >
+<insert id="addti" parameterType="cn.test.email.model.TestPaper">
+insert into t_test_paper 
+		values(null,#{pname},#{seednum},#{qnum},#{minute},#{time},#{rank})
+
+</insert>
+  <select id="cha" resultType="cn.test.email.model.TestPaper">
+  select * from t_test_paper
+  </select> 
+  
+  <select id="selectpid" parameterType="int" resultType="int">
+  select pid from t_paper_question where pid=#{id}
+  </select>
+     
+ <select id="chaid" resultType="int" parameterType="int">
+   select qid from t_paper_question where pid=#{id}
+ </select>
+ <select id="selectti" parameterType="cn.test.email.model.idvo" resultType="cn.test.email.model.TExamQuestion">
+
+ select * from t_exam_question where
+ <foreach collection="list" item="i" open="id in(" separator="," close=")">
+#{i}
+</foreach>
+ 
+ </select>
+ <select id="finddan" resultType="cn.test.email.model.TExamQuestion">
+ 	select * from t_exam_question where type='1'
+ 
+ </select>
+ <select id="findduo" resultType="cn.test.email.model.TExamQuestion">
+ 	select * from t_exam_question where type='2'
+ 
+ </select>
+ <select id="findtian" resultType="cn.test.email.model.TExamQuestion">
+ 	select * from t_exam_question where type='3'
+ 
+ </select>
+ <select id="findjian" resultType="cn.test.email.model.TExamQuestion">
+ 	select * from t_exam_question where type='4'
+ 
+ </select>
+ <insert id="adddan" parameterType="cn.test.email.model.yivo">
+ insert into t_paper_question values(#{j},#{i});
+ </insert>
+ <insert id="addduo" parameterType="cn.test.email.model.yivo">
+ insert into t_paper_question values(#{j},#{i});
+ </insert>
+ <insert id="addtian" parameterType="cn.test.email.model.yivo">
+ insert into t_paper_question values(#{j},#{i});
+ </insert>
+ <insert id="addjian" parameterType="cn.test.email.model.yivo">
+ insert into t_paper_question values(#{j},#{i});
+ </insert>
+ <insert id="addyi" parameterType="cn.test.email.model.TestPaper" 
+ useGeneratedKeys="true" keyProperty="id">
+ <!-- <selectKey keyProperty="id" resultType="int" order="AFTER">
+  		select last_insert_id()
+  	</selectKey> -->
+  	
+ insert into t_test_paper 
+		values(null,#{pname},#{seednum},#{qnum},#{minute},#{time},#{rank})
+ 
+ </insert>
+</mapper>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="cn.test.email.mapping.TuMapper">
+
+	<select id="getQuestionType" parameterType="int"
+		resultType="cn.test.email.model.Label">
+		SELECT DISTINCT
+		c.label,
+		c.lid
+		FROM
+		t_question_history a,
+		t_exam_question b,
+		t_label c
+		WHERE a.qid = b.id
+		AND b.label = c.lid AND uid=#{uid}
+	</select>
+
+	<select id="getQuestionCount" parameterType="int" resultType="int">
+		SELECT COUNT(qid) FROM t_question_history
+		WHERE lid=#{lid}
+	</select>
+
+	<select id="getQuestionCountZheng" parameterType="int"
+		resultType="int">
+		SELECT COUNT(qid) FROM t_question_history
+		WHERE lid=#{lid}
+		and state=0
+	</select>
+
+	<select id="getLabel" resultType="int">
+		SELECT COUNT(lid) FROM t_label
+	</select>
+
+	<select id="getZongCount" resultType="int"
+		parameterType="cn.test.email.model.DataQuestion">
+		SELECT COUNT(qid) FROM t_question_history
+		WHERE uid=#{uid} AND created LIKE '${datatime}%'
+	</select>
+
+	<select id="getErrorCount" resultType="int"
+		parameterType="cn.test.email.model.DataQuestion">
+		SELECT COUNT(qid) FROM t_question_history
+		WHERE uid=#{uid} AND state=1 AND created LIKE '${datatime}%'
+	</select>
+
+</mapper>
+
+
